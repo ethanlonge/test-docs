@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag "${DOCKER_REPOSITORY}/${DOCKER_TAG}"
+    - name: Login to Docker Repository
+      run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DOCKER_REPOSITORY}
+    - name: Push the Docker image
+      run: docker push "${DOCKER_REPOSITORY}/${DOCKER_TAG}"
