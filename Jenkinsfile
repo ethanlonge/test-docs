@@ -4,12 +4,16 @@ pipeline {
     stage('Build') {
       steps {
         container(name: 'docker') {
-          sh 'docker build . -t registry.k8s.fruitysites.com:443/test-docs:develop'
-          sh 'docker push registry.k8s.fruitysites.com:443/test-docs:develop'
+          sh 'docker build . -t ${DOCKER_REPOSITORY}'
+          sh '''docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_REPOSITORY}
+docker push ${DOCKER_REPOSITORY}'''
         }
 
       }
     }
 
+  }
+  environment {
+    DOCKER_REPOSITORY = 'registry.k8s.fruitysites.com:443/test-docs'
   }
 }
