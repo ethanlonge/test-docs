@@ -28,4 +28,4 @@ jobs:
     steps:
     - uses: azure/setup-kubectl@v2.0
     - name: Deploy to Kubernetes
-      run: kubectl --kubeconfig /config/config rollout restart deployment/test-docs
+      run: kubectl --kubeconfig /config/config -n default rollout restart deployment/test-docs
