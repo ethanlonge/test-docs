@@ -22,8 +22,9 @@ jobs:
       run: docker push "${DOCKER_REPOSITORY}/${DOCKER_TAG}"
   
   deploy:
+    needs: build
     runs-on: self-hosted
   
     steps:
     - name: Deploy to Kubernetes
-      run: kubectl --config /config/kubeconfig rollout restart deployment/test-docs
+      run: sudo apt update && sudo apt install kubectl && kubectl --config /config/config rollout restart deployment/test-docs
