@@ -4,9 +4,9 @@ pipeline {
     stage('Build') {
       steps {
         container(name: 'docker') {
-          sh 'docker build . -t ${DOCKER_REPOSITORY}/${DOCKER_TAG}'
-          sh '''docker login -u ${DOCKER_CREDS_USR} -p ${DOCKER_CREDS_PSW} ${DOCKER_REPOSITORY}
-docker push ${DOCKER_REPOSITORY}/${DOCKER_TAG}'''
+          sh 'docker build . -t "${DOCKER_REPOSITORY}/${DOCKER_TAG}"'
+          sh '''docker login -u "${DOCKER_CREDS_USR}" -p "${DOCKER_CREDS_PSW}" "${DOCKER_REPOSITORY}"
+docker push "${DOCKER_REPOSITORY}/${DOCKER_TAG}"'''
         }
 
       }
