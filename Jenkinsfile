@@ -4,9 +4,10 @@ pipeline {
     stage('Build') {
       steps {
         container(name: 'docker') {
-          sh 'docker build . -t ${DOCKER_REPOSITORY}'
-          sh '''docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_REPOSITORY}
-docker push ${DOCKER_REPOSITORY}'''
+          //sh 'docker build . -tÂ ${DOCKER_REPOSITORY}'
+          //sh '''docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_REPOSITORY}
+//docker push ${DOCKER_REPOSITORY}'''
+          docker.build('test-docs').push('latest')
         }
 
       }
