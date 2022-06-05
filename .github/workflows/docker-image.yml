@@ -20,3 +20,10 @@ jobs:
       run: docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DOCKER_REPOSITORY}
     - name: Push the Docker image
       run: docker push "${DOCKER_REPOSITORY}/${DOCKER_TAG}"
+  
+  deploy:
+    runs-on: self-hosted
+  
+    steps:
+    - name: Deploy to Kubernetes
+      run: kubectl --config /config/kubeconfig rollout restart deployment/test-docs
