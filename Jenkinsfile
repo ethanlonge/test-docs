@@ -15,7 +15,7 @@ docker push ${DOCKER_REPOSITORY}/${DOCKER_TAG}'''
   }
   environment {
     DOCKER_REPOSITORY = 'registry.k8s.fruitysites.com:443'
-    DOCKER_CREDS = 'credentials(\'1fdfb4c1-ec64-4eb1-a7ea-72f7ae6dd2aa\')'
+    DOCKER_CREDS = credentials('1fdfb4c1-ec64-4eb1-a7ea-72f7ae6dd2aa')
     DOCKER_TAG = 'testdocs:develop'
   }
 }
