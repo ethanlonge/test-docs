@@ -37,6 +37,12 @@ spec:
       - name: source
       - name: basic-auth
     tasks:
+      - name: hello1
+        taskSpec:
+          steps:
+            - name: hello-moto
+              image: alpine:3.7
+              script: "echo hello moto"
       - name: fetch-source
         taskRef:
           name: git-clone
