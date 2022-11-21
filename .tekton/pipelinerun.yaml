@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: .
+  name: test-docs-deploy
   annotations:
     # The event we are targeting as seen from the webhook payload
     # this can be an array too, i.e: [pull_request, push]
@@ -13,12 +13,12 @@ metadata:
 
     # Fetch the git-clone task from hub, we are able to reference later on it
     # with taskRef and it will automatically be embedded into our pipeline.
-    pipelinesascode.tekton.dev/task: "git-clone"
+    #pipelinesascode.tekton.dev/task: "[git-clone:0.9, kaniko:0.6, helm-upgrade-from-source:0.3]"
 
-    pipelinesascode.tekton.dev/task-1: "kaniko"
-
-    pipelinesascode.tekton.dev/task-2: "helm-upgrade-from-source"
-
+    pipelinesascode.tekton.dev/task: "https://raw.githubusercontent.com/tektoncd/catalog/main/task/git-clone/0.9/git-clone.yaml"
+    pipelinesascode.tekton.dev/task-2: "https://raw.githubusercontent.com/tektoncd/catalog/main/task/kaniko/0.6/kaniko.yaml"
+    pipelinesascode.tekton.dev/task-3: "https://raw.githubusercontent.com/tektoncd/catalog/main/task/helm-upgrade-from-source/0.3/helm-upgrade-from-source.yaml"
+    
     # How many runs we want to keep.
     pipelinesascode.tekton.dev/max-keep-runs: "5"
 spec:
@@ -40,7 +40,7 @@ spec:
       - name: fetch-source
         taskRef:
           name: git-clone
-          kind: ClusterTask
+          kind: Task
         workspaces:
           - name: output
             workspace: source
@@ -56,6 +56,7 @@ spec:
       - name: build
         taskRef:
           name: kaniko
+          kind: Task
         params:
           - name: IMAGE
             value: harbor.k8s.fruitysites.com/test/test-docs:latest
@@ -70,6 +71,7 @@ spec:
       - name: deploy
         taskRef: 
           name: helm-upgrade-from-source
+          kind: Task
         runAfter:
           - build
         workspaces:
