@@ -38,12 +38,6 @@ spec:
       - name: basic-auth
       - name: test-docker-credentials
     tasks:
-      - name: hello1
-        taskSpec:
-          steps:
-            - name: hello-moto
-              image: alpine:3.7
-              script: "echo hello moto"
       - name: fetch-source
         taskRef:
           name: git-clone
@@ -89,7 +83,7 @@ spec:
             workspace: source
         params:
           - name: charts_dir
-            value: "charts"
+            value: "charts/test-docs"
           - name: release_name
             value: "test-docs"
           - name: release_namespace
