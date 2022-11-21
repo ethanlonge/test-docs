@@ -109,3 +109,6 @@ spec:
   - name: test-docker-credentials
     secret:
       secretName: "test-docker-credentials"
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
