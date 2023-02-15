@@ -6,7 +6,7 @@ metadata:
   annotations:
     # The event we are targeting as seen from the webhook payload
     # this can be an array too, i.e: [pull_request, push]
-    #pipelinesascode.tekton.dev/on-cel-expression: "event == 'push' && target_branch == 'main'"
+    pipelinesascode.tekton.dev/on-cel-expression: ""
     
     pipelinesascode.tekton.dev/on-event: "[pull_request, push]"
 
